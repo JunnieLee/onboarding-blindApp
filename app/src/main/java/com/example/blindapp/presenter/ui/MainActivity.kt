@@ -2,7 +2,9 @@ package com.example.blindapp.presenter.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.blindapp.R
 import com.example.blindapp.databinding.ActivityMainBinding
 import com.example.blindapp.domain.model.Content
@@ -19,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             setContentView(root)
             view = this@MainActivity
+            recyclerView.adapter = adapter
+            recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    this@MainActivity,
+                    LinearLayout.VERTICAL
+                )
+            )
         }
     }
 
