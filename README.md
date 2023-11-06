@@ -9,3 +9,6 @@ feat. clean architecture
 
 ## 완성 예제
 <img width="1133" alt="image" src="https://github.com/JunnieLee/onboarding-blindApp/assets/33515577/95062fab-9667-4594-b1af-a48bcb3e2714">
+
+## 안드로이드에서의 클린 아키텍처
+<img width="1357" alt="image" src="https://github.com/JunnieLee/onboarding-blindApp/assets/33515577/1cbae7b9-154c-49b4-afae-d647e1f16778">
