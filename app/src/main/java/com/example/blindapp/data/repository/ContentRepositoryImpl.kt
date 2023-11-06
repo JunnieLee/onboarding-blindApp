@@ -37,8 +37,9 @@ class ContentRepositoryImpl @Inject constructor(
     override suspend fun delete(item: Content): Boolean {
         return try {
             item.id?.let{ id ->
-                contentService.deleteItem(id)
+                contentService.deleteItem(id) // (1) api 상 삭제 요청
             }
+            contentDao.delete(item.toEntity()) // (2) 내부 db 삭제 요청 : item을 entity로 바꾼후에, 해당 item이 내부 DB에 있으면 삭제
             true
         } catch (e:IOException){
             false
