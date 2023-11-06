@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     inner class Handler {
         fun onClickItem(item: Content) {
-            //InputActivity.start(this@MainActivity, item)
+            InputActivity.start(this@MainActivity, item)
         }
 
         fun onLongClickItem(item: Content): Boolean {
