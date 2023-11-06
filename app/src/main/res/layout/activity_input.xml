@@ -31,6 +31,7 @@
                 android:hint="카테고리"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@={viewModel.category}"
                 android:textAppearance="@style/TextAppearance.App">
 
                 <requestFocus />
@@ -54,6 +55,7 @@
                 android:hint="제목"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@={viewModel.title}"
                 android:textAppearance="@style/TextAppearance.App" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,6 +78,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textMultiLine"
                 android:minHeight="150dp"
+                android:text="@={viewModel.content}"
                 android:textAppearance="@style/TextAppearance.App" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +92,7 @@
             android:paddingEnd="@dimen/padding"
             android:paddingBottom="@dimen/padding_small"
             android:text="입력 완료"
+            android:onClick="@{() -> viewModel.insertData()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
