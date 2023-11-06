@@ -5,11 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blindapp.domain.model.Content
+import com.example.blindapp.domain.useCase.ContentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class InputViewModel : ViewModel(){
+class InputViewModel @Inject constructor(
+    private val contentUseCase: ContentUseCase
+) : ViewModel(){
 
     private val _doneEvent = MutableLiveData<Pair<Boolean, String>>()
     val doneEvent: LiveData<Pair<Boolean, String>> = _doneEvent
@@ -37,6 +42,17 @@ class InputViewModel : ViewModel(){
             _doneEvent.value = Pair(false, "모든 항목을 입력하셔야 합니다.")
             return
         }
-        // api 처리
+        // api 통신
+        viewModelScope.launch(Dispatchers.IO) {
+            contentUseCase.save(
+                item?.copy(
+                    category = categoryValue,
+                    title = titleValue,
+                    content = contentValue,
+                ) ?: Content(category = categoryValue, title = titleValue, content = contentValue)
+            ).also {
+                _doneEvent.postValue(Pair(true, if (it as Boolean) "완료!" else "저장 할 수 없습니다."))
+            }
+        }
     }
 }
