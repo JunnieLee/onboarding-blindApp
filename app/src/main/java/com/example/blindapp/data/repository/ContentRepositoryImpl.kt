@@ -26,6 +26,7 @@ class ContentRepositoryImpl @Inject constructor(
     override suspend fun update(item: Content): Boolean {
         return try{
             contentService.updateItem(item.toRequest())
+            contentDao.insert(item.toEntity()) // 충돌시 replace이기 때문에 똑같이 insert 메소드 써주면 됨
             true
         } catch (e:IOException){
             false
