@@ -4,7 +4,9 @@
 
     <data>
 
-
+        <variable
+            name="viewModel"
+            type="com.example.blindapp.presenter.viewModel.InputViewModel" />
 
     </data>
 
