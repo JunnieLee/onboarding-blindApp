@@ -16,6 +16,24 @@ class ContentRepositoryImpl @Inject constructor(
     private val contentService: ContentService,
     private val contentDao: ContentDao
 ) : ContentRepository {
+
+    override fun loadList(): Flow<List<Content>> {
+        return flow {
+
+            contentDao.selectAll().collect{ list ->
+                emit(list.map{it.toContent()})
+            }
+
+            emit(
+                try{
+                    contentService.getList().data.map { it.toContent() }
+                } catch (e:IOException){
+                    emptyList()
+                }
+            )
+        }
+    }
+
     override suspend fun save(item: Content): Boolean {
         return try{
             contentService.saveItem(item.toRequest()) // save 될때 api 통신도 되고
@@ -33,18 +51,6 @@ class ContentRepositoryImpl @Inject constructor(
             true
         } catch (e:IOException){
             false
-        }
-    }
-
-    override fun loadList(): Flow<List<Content>> {
-        return flow {
-            emit(
-                try{
-                    contentService.getList().data.map { it.toContent() }
-                } catch (e:IOException){
-                    emptyList()
-                }
-            )
         }
     }
 

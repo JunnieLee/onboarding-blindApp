@@ -4,6 +4,7 @@ import com.example.blindapp.data.model.entity.ContentEntity
 import com.example.blindapp.domain.model.Content
 import java.util.*
 
+// content mapping을 위한 extension function들
 object ContentMapper {
 
     fun Content.toRequest() = ContentDto(
@@ -38,6 +39,17 @@ object ContentMapper {
         createdDate = createdDate ?: Date(),
     )
 
+    fun ContentEntity.toContent() = Content(
+        id = id,
+        title = title,
+        content = content,
+        category = category,
+        likeCount = likeCount,
+        commentCount = commentCount,
+        viewCount = viewCount,
+        createdDate = createdDate,
+    )
+
 
     /*
     fun ContentDto.toEntity() = ContentEntity(
@@ -49,18 +61,6 @@ object ContentMapper {
         commentCount = commentCount ?: 0,
         viewCount = viewCount ?: 0,
         createdDate = createdDate ?: Date(),
-    )
-
-
-    fun ContentEntity.toContent() = Content(
-        id = id,
-        title = title,
-        content = content,
-        category = category,
-        likeCount = likeCount,
-        commentCount = commentCount,
-        viewCount = viewCount,
-        createdDate = createdDate,
     )
      */
 }
