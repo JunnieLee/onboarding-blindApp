@@ -30,7 +30,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient.Builder {
+    fun providesOkHttpClient(): OkHttpClient.Builder {
         return OkHttpClient.Builder().apply {
             connectTimeout(5, TimeUnit.SECONDS)
             readTimeout(5, TimeUnit.SECONDS)
@@ -43,7 +43,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(
+    fun providesRetrofit(
         client: OkHttpClient.Builder,
         gsonConverterFactory: GsonConverterFactory,
     ): Retrofit {
