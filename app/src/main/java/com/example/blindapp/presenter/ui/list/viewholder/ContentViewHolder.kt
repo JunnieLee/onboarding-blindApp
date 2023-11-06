@@ -7,11 +7,11 @@ import com.example.blindapp.presenter.ui.MainActivity
 
 class ContentViewHolder(
     private val binding: ItemContentBinding,
-    //private val handler: MainActivity.Handler
+    private val handler: MainActivity.Handler
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item : Content) {
         binding.item = item
-        //binding.handler = handler
+        binding.handler = handler
     }
 }

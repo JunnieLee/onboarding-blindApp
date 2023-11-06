@@ -8,7 +8,7 @@ import com.example.blindapp.domain.model.Content
 import com.example.blindapp.presenter.ui.MainActivity
 import com.example.blindapp.presenter.ui.list.viewholder.ContentViewHolder
 
-class ListAdapter(/*private val handler: MainActivity.Handler*/) :
+class ListAdapter(private val handler: MainActivity.Handler) :
     androidx.recyclerview.widget.ListAdapter<Content, ContentViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
@@ -18,7 +18,7 @@ class ListAdapter(/*private val handler: MainActivity.Handler*/) :
                 parent,
                 false
             ),
-            //handler
+            handler
         )
     }
 

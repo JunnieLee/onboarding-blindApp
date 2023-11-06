@@ -9,20 +9,17 @@
             name="item"
             type="com.example.blindapp.domain.model.Content" />
 
-        <!--
         <variable
             name="handler"
-            type="com.example.blindapp.presentation.ui.MainActivity.Handler" />
-        -->
+            type="com.example.blindapp.presenter.ui.MainActivity.Handler" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    <!--
-   android:onClick="@{() -> handler.onClickItem(item)}"
-   android:onLongClick="@{() -> handler.onLongClickItem(item)}"
-   -->
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> handler.onClickItem(item)}"
+        android:onLongClick="@{() -> handler.onLongClickItem(item)}">
 
    <androidx.appcompat.widget.AppCompatTextView
        android:id="@+id/titleTextView"
