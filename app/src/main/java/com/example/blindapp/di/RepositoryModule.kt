@@ -19,5 +19,5 @@ object RepositoryModule {
     fun providesContentRepository(
         contentDao: ContentDao,
         contentService: ContentService
-    ) : ContentRepository = ContentRepositoryImpl(contentService)
+    ) : ContentRepository = ContentRepositoryImpl(contentService, contentDao)
 }
