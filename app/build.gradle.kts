@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.blindapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.blindapp"
