@@ -3,6 +3,7 @@ package com.example.blindapp.presenter.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -61,6 +62,11 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
+        viewModel.doneEvent.observe(this){
+            if (it.first){ // 성공시
+                Toast.makeText(this, it.second, Toast.LENGTH_SHORT).show()
+            }
+        }
 
     }
 
@@ -73,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this@MainActivity)
                 .setTitle("정말 삭제 하시겠습니까?")
                 .setPositiveButton("네") { _, _ ->
-                    //viewModel.deleteItem(item)
+                    viewModel.deleteItem(item)
                 }.setNegativeButton("아니오") { _, _ ->
 
                 }.show()
