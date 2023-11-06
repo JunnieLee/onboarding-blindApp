@@ -10,13 +10,7 @@ class ContentUseCase @Inject constructor(
 
     suspend fun save(item:Content) = contentRepository.save(item)
 
-
     fun loadList() = contentRepository.loadList()
 
-    /*
-    suspend fun save(item: Content) = contentRepository.insert(item)
-
     suspend fun delete(item: Content) = contentRepository.delete(item)
-
-     */
 }

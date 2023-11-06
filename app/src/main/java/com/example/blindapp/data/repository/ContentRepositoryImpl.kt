@@ -34,6 +34,17 @@ class ContentRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun delete(item: Content): Boolean {
+        return try {
+            item.id?.let{ id ->
+                contentService.deleteItem(id)
+            }
+            true
+        } catch (e:IOException){
+            false
+        }
+    }
+
     override suspend fun save(item: Content): Boolean {
         return try{
             contentService.saveItem(item.toRequest()) // save 될때 api 통신도 되고
