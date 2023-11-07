@@ -34,9 +34,12 @@ class ContentRepositoryImpl @Inject constructor(
     override suspend fun delete(item: Content): Boolean {
         return try {
             item.id?.let{ id ->
-                contentService.deleteItem(id) // (1) api 상 삭제 요청
+                contentService.deleteItem(id).also{// (1) api 상 삭제 요청
+                    if (it.success){
+                        contentDao.delete(item.toEntity()) // (2) 내부 db 삭제 요청 : item을 entity로 바꾼후에, 해당 item이 내부 DB에 있으면 삭제
+                    }
+                }
             }
-            contentDao.delete(item.toEntity()) // (2) 내부 db 삭제 요청 : item을 entity로 바꾼후에, 해당 item이 내부 DB에 있으면 삭제
             true
         } catch (e:IOException){
             false
@@ -45,8 +48,13 @@ class ContentRepositoryImpl @Inject constructor(
 
     override suspend fun save(item: Content): Boolean {
         return try{
-            contentService.saveItem(item.toRequest()) // save 될때 api 통신도 되고
-            contentDao.insert(item.toEntity()) // 저장도 함
+            contentService.saveItem(item.toRequest()).also{// save 될때 api 통신도 되고
+                if (it.success){
+                    it.data?.let{ contentDto ->
+                        contentDao.insert(contentDto.toEntity()) // 내부 db에 저장도 함
+                    }
+                }
+            }
             true
         } catch (e:IOException){
             false
@@ -55,8 +63,13 @@ class ContentRepositoryImpl @Inject constructor(
 
     override suspend fun update(item: Content): Boolean {
         return try{
-            contentService.updateItem(item.toRequest())
-            contentDao.insert(item.toEntity()) // 충돌시 replace이기 때문에 똑같이 insert 메소드 써주면 됨
+            contentService.updateItem(item.toRequest()).also {
+                if (it.success){ // 서버 통신 success면 아래 내부 유 데이터도 업데이트
+                    it.data?.let{contentDto ->
+                        contentDao.insert(contentDto.toEntity()) // 충돌시 replace이기 때문에 똑같이 insert 메소드 써주면 됨
+                    }
+                }
+            }
             true
         } catch (e:IOException){
             false
