@@ -19,18 +19,15 @@ class ContentRepositoryImpl @Inject constructor(
 
     override fun loadList(): Flow<List<Content>> {
         return flow {
-
-            contentDao.selectAll().collect{ list ->
-                emit(list.map{it.toContent()})
-            }
-
-            emit(
-                try{
-                    contentService.getList().data.map { it.toContent() }
-                } catch (e:IOException){
-                    emptyList()
+            try {
+                contentService.getList().data.also { list ->
+                    contentDao.insertAll(list.map {it.toEntity()}) // 우리가 api 통신을 통해 받아온 리스트를 모두 내부 DB에 넣음
+                } // 네트워크 통신이 끊기게 되면 이부분은 실행이 안되고, 아래 부분만 실행되어 기존에 내부 db 통해 저장된 내용들만 보여질것임
+            } finally {
+                contentDao.selectAll().collect{ list ->
+                    emit(list.map{it.toContent()}) // 내부 db에 있는 데이터를 리턴시켜줌
                 }
-            )
+            }
         }
     }
 

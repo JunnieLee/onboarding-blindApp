@@ -50,8 +50,6 @@ object ContentMapper {
         createdDate = createdDate,
     )
 
-
-    /*
     fun ContentDto.toEntity() = ContentEntity(
         id = id ?: -1,
         title = title,
@@ -62,5 +60,4 @@ object ContentMapper {
         viewCount = viewCount ?: 0,
         createdDate = createdDate ?: Date(),
     )
-     */
 }
